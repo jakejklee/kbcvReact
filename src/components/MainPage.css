@@ -1,0 +1,16 @@
+.card{
+    border: 1px solid rgba(0, 0, 0, 0) !important;
+}
+
+.ministryItem img{
+    margin-bottom : 0px !important;
+}
+
+#mainNav{
+    padding:0.5rem 1rem !important;
+}
+
+ul.photo-social li a{
+    background-color: transparent !important;
+    color:black !important;
+}
