@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 // import '../css/agency.css';
 import PhotoAlbum from './PhotoAlbum';
 import MainEditor from './MainEditor';
+import strings from './strings';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram, faFlickr, faYoutube, faVimeo } from '@fortawesome/free-brands-svg-icons';
 import { faChurch, faLink, faInfoCircle, faHome, faEnvelope, faPhone, faTimes, faPlus, faBars } from '@fortawesome/free-solid-svg-icons';
@@ -32,6 +33,7 @@ interface State {
     pageYOffset: number;
     mainEditorModal: boolean;
     mainPhotoObj: any;
+    language: boolean;
 }
 let pageOffset = 0
 class MainPage extends React.Component<Props, State> {
@@ -54,6 +56,7 @@ class MainPage extends React.Component<Props, State> {
             videoTitle: '',
             videoParagraph: '',
             pageYOffset: 0,
+            language: true,
         }
     }
 
@@ -93,7 +96,6 @@ class MainPage extends React.Component<Props, State> {
             }
         });
     }
-
 
 
     private handleScroll = () => {
@@ -231,7 +233,17 @@ class MainPage extends React.Component<Props, State> {
         return images;
     }
 
+
+    changeLan = () => {
+        this.setState({ language: !this.state.language })
+    }
     render() {
+        let stringObj;
+        this.state.language ?
+            stringObj = strings.kr
+            :
+            stringObj = strings.en
+
         return (
             <div className="App">
 
@@ -262,19 +274,21 @@ class MainPage extends React.Component<Props, State> {
                             <div className="collapse navbar-collapse" id="navbarResponsive">
                                 <ul className="navbar-nav text-uppercase ml-auto">
                                     <li className="nav-item">
-                                        <a className="nav-link js-scroll-trigger" href="#sermon">SERMON <small>| 설교영상</small></a>
+                                        <a className="nav-link js-scroll-trigger" href="#sermon">{stringObj.sermon}</a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link js-scroll-trigger" href="#ministry">MINISTRY <small>| 사역</small></a>
+                                        <a className="nav-link js-scroll-trigger" href="#ministry">{stringObj.ministry}</a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link js-scroll-trigger" href="#portfolio">About <small>| 교회소개</small></a>
+                                        <a className="nav-link js-scroll-trigger" href="#portfolio">{stringObj.about}</a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link js-scroll-trigger" href="#photo">Photo <small>| 사진</small></a>
+                                        <a className="nav-link js-scroll-trigger" href="#photo">{stringObj.photo}</a>
                                     </li>
-
-
+                                    <li className="nav-item">
+                                        <a className="nav-link js-scroll-trigger" href="#language"
+                                            onClick={() => { this.changeLan() }}>Language | {stringObj.language}</a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -333,7 +347,7 @@ class MainPage extends React.Component<Props, State> {
                         <div className="container">
                             <div className="row">
                                 <div className="col-lg-12 text-center">
-                                    <h2 className="section-heading text-uppercase">주일설교</h2>
+                                    <h2 className="section-heading text-uppercase">{stringObj.sundaySermon}</h2>
                                     <h3 className="section-subheading text-muted"></h3>
 
                                     <div className="embed-responsive embed-responsive-16by9">
@@ -407,7 +421,7 @@ class MainPage extends React.Component<Props, State> {
                         <div className="container">
                             <div className="row">
                                 <div className="col-lg-12 text-center">
-                                    <h2 className="section-heading text-uppercase">부서 및 전문사역</h2>
+                                    <h2 className="section-heading text-uppercase">{stringObj.ministryTeam}</h2>
                                     <h3 className="section-subheading text-muted"></h3>
                                 </div>
                             </div>
@@ -416,31 +430,31 @@ class MainPage extends React.Component<Props, State> {
                                     <span className="fa-stack fa-4x"><a className="ministry-link text-muted" data-toggle="modal" href="#ministry1">
                                         <img className="img-fluid" src="img/ministrylogo/grow1.png" alt="kbcv_kids" /></a>
                                     </span>
-                                    <h4 className="service-heading">어린이부 | KIDS </h4>
+                                    <h4 className="service-heading">{stringObj.kids} </h4>
                                     <p className="text-muted">미취학 어린이를 위한 영/유아부와 11세(G6)이하의 어린이들을 위한 예배입니다.
             무엇보다도 신앙안에서 하나님의 자녀요, 제자라는 정체성과 함께 예수님을 닮은 존귀한 존재로 준비되도록 돕고 있습니다.</p>
-                                    <a className="ministry-link text-muted" data-toggle="modal" href="#ministry1"><strong>바로가기</strong></a>
+                                    <a className="ministry-link text-muted" data-toggle="modal" href="#ministry1"><strong>{stringObj.link}</strong></a>
                                     {/* <a href="kids.html" className="text-muted"><strong>바로가기</strong></a> */}
                                 </div>
                                 <div className="col-md-4">
                                     <span className="fa-stack fa-4x"><a className="ministry-link text-muted" data-toggle="modal" href="#ministry2">
                                         <img className="img-fluid" src="img/ministrylogo/cross1.png" alt="kbcv_youth" /></a>
                                     </span>
-                                    <h4 className="service-heading">청소년부 | YOUTH</h4>
+                                    <h4 className="service-heading">{stringObj.youth}</h4>
                                     <p className="text-muted">청소년부는 12세부터 19세(G7-G12)까지 하나님을 사랑하는 십대 청소년들로 구성되어 주일 오전11:30분에 모여 예배 드리고 있습니다.
                                     예배를 통하여 사명을 깨닫고 하나님의 나라와 뜻을 위하여 귀하게 쓰임받을 수 있도록 늘 말씀과 기도
             로 함께하고 있습니다.</p>
-                                    <a className="ministry-link text-muted" data-toggle="modal" href="#ministry2"><strong>바로가기</strong></a>
+                                    <a className="ministry-link text-muted" data-toggle="modal" href="#ministry2"><strong>{stringObj.link}</strong></a>
                                     {/* <a href="youth.html" className="text-muted"><strong>바로가기</strong></a> */}
                                 </div>
                                 <div className="col-md-4">
                                     <span className="fa-stack fa-4x"><a className="ministry-link text-muted" data-toggle="modal" href="#ministry3">
                                         <img className="img-fluid" src="img/ministrylogo/love1.png" alt="kbcv_youngadult" /></a>
                                     </span>
-                                    <h4 className="service-heading">청년부 | YOUNG ADULT</h4>
+                                    <h4 className="service-heading">{stringObj.youngAdult}</h4>
                                     <p className="text-muted">20세 이상의 미혼 청년들을 중심으로 모여 찬양과 경배, 성경공부모임, 제자훈련을 통해 예수님과 동행하는 삶을 살아가고
             믿음으로 함께 걸어가는 젊은 그리스도인들의 사랑 공동체입니다.</p>
-                                    <a className="ministry-link text-muted" data-toggle="modal" href="#ministry3"><strong>바로가기</strong></a>
+                                    <a className="ministry-link text-muted" data-toggle="modal" href="#ministry3"><strong>{stringObj.link}</strong></a>
                                     {/* <a href="youngadult.html" className="text-muted"><strong>바로가기</strong></a> */}
                                 </div>
                             </div>
@@ -754,7 +768,7 @@ class MainPage extends React.Component<Props, State> {
                         <div className="container">
                             <div className="row">
                                 <div className="col-lg-12 text-center">
-                                    <h2 className="section-heading text-uppercase">교회소개</h2>
+                                    <h2 className="section-heading text-uppercase">{stringObj.aboutChurch}</h2>
                                     <h3 className="section-subheading text-muted"></h3>
                                 </div>
                             </div>
@@ -769,7 +783,7 @@ class MainPage extends React.Component<Props, State> {
                                         <img className="img-fluid" src="img/portfolio/ch_1.jpg" alt="about-church-thumbnail" />
                                     </a>
                                     <div className="portfolio-caption">
-                                        <h4>교회역사 및 비전</h4>
+                                        <h4>{stringObj.historyAndVision}</h4>
                                         <p className="text-muted"></p>
                                     </div>
                                 </div>
@@ -783,7 +797,7 @@ class MainPage extends React.Component<Props, State> {
                                         <img className="img-fluid" src="img/portfolio/02-thumbnail.jpg" alt="senior-pastor-thumbnail" />
                                     </a>
                                     <div className="portfolio-caption">
-                                        <h4>담임목사소개</h4>
+                                        <h4>{stringObj.aboutPastorPaul}</h4>
                                         <p className="text-muted"></p>
                                     </div>
                                 </div>
@@ -797,7 +811,7 @@ class MainPage extends React.Component<Props, State> {
                                         <img className="img-fluid" src="img/portfolio/03-thumbnail1.jpg" alt="service-schedule-thumbnail" />
                                     </a>
                                     <div className="portfolio-caption">
-                                        <h4>예배시간 및 오시는길</h4>
+                                        <h4>{stringObj.timeAndLocation}</h4>
                                         <p className="text-muted"></p>
                                     </div>
                                 </div>
@@ -811,7 +825,7 @@ class MainPage extends React.Component<Props, State> {
                                         <img className="img-fluid" src="img/portfolio/04-thumbnail.jpg" alt="ministers-thumbnail" />
                                     </a>
                                     <div className="portfolio-caption">
-                                        <h4>교역자소개</h4>
+                                        <h4>{stringObj.pastors}</h4>
                                         <p className="text-muted"></p>
                                     </div>
                                 </div>
@@ -825,7 +839,7 @@ class MainPage extends React.Component<Props, State> {
                                         <img className="img-fluid" src="img/portfolio/05-thumbnail.jpg" alt="deacon-thumbnail" />
                                     </a>
                                     <div className="portfolio-caption">
-                                        <h4>섬기는사람들</h4>
+                                        <h4>{stringObj.ordainedDecon}</h4>
                                         <p className="text-muted"></p>
                                     </div>
                                 </div>
@@ -839,7 +853,7 @@ class MainPage extends React.Component<Props, State> {
                                         <img className="img-fluid" src="img/portfolio/cg1.jpg" alt="life-group-thumbnail" />
                                     </a>
                                     <div className="portfolio-caption">
-                                        <h4>구역모임</h4>
+                                        <h4>{stringObj.cellGroup}</h4>
                                         <p className="text-muted"></p>
                                     </div>
                                 </div>
@@ -853,7 +867,7 @@ class MainPage extends React.Component<Props, State> {
                             <img className="img-fluid" src="img/ministrylogo/brochure.png" alt="kbcv_brochure_2019" /></a>
                         </span>
                         <h2 className="section-heading text-uppercase" style={{ color: "black" }}><a
-                            href="https://www.flickr.com/photos/167839826@N06/albums/72157712530460638" target="_blank">2020년 교회주보</a></h2>
+                            href="https://www.flickr.com/photos/167839826@N06/albums/72157712530460638" target="_blank">{stringObj.news2020}</a></h2>
                         <br />
                     </div>
 
@@ -863,7 +877,7 @@ class MainPage extends React.Component<Props, State> {
                         <div className="container">
                             <div className="row">
                                 <div className="col-lg-12 text-center">
-                                    <h2 className="section-heading text-uppercase">포토갤러리</h2>
+                                    <h2 className="section-heading text-uppercase">{stringObj.photoGallary}</h2>
                                     {/* <h3 className="section-subheading text-muted"> </h3>
                                      */}
 
@@ -974,13 +988,13 @@ class MainPage extends React.Component<Props, State> {
 
                                     <div className="col-sm-12 col-md-3 text-center text-md-left text-uppercase mb-3 mb-md-0">
                                         <p>
-                                            <h6 className="text-uppercase font-weight-bold">예배안내</h6>
-                                            <p></p> 주일1부 | 9:00AM
-                <br />주일2부 | 11:30AM <br />
-                                            <br />새벽기도회 | 6:00AM (화-금)
-                <br />화요중보기도 | 10:00AM<br />
-                                            <br />수요예배 | 7:30PM
-                <br />금요기도회 | 8:00PM </p>
+                                            <h6 className="text-uppercase font-weight-bold">{stringObj.serviceInfo}</h6>
+                                            <p></p> {stringObj.sun1} | 9:00AM
+                <br />{stringObj.sun2} | 11:30AM <br />
+                                            <br />{stringObj.earlyMorningPrayer} | 6:00AM ({stringObj.tueToFri})
+                <br />{stringObj.tuesday} | 10:00AM<br />
+                                            <br />{stringObj.wednesday} | 7:30PM
+                <br />{stringObj.friday} | 8:00PM </p>
                                     </div>
                                     <div className="col-sm-12 col-md-1 text-center mb-3 mb-md-0">
                                         {/* <i className="fas fa-link fa-2x"></i> */}
@@ -988,16 +1002,16 @@ class MainPage extends React.Component<Props, State> {
                                     </div>
                                     <div className="col-sm-12 col-md-3 text-center text-md-left text-uppercase mb-3 mb-md-0">
                                         {/* <!-- Links --> */}
-                                        <h6 className="text-uppercase font-weight-bold">Useful links</h6>
+                                        <h6 className="text-uppercase font-weight-bold">{stringObj.usefulLinks}</h6>
 
                                         <p>
-                                            <a className="bottom_link" href="http://www.duranno.com/qt/default.asp?CAT=020200" target="_blank">생명의삶</a>
+                                            <a className="bottom_link" href="http://www.duranno.com/qt/default.asp?CAT=020200" target="_blank">{stringObj.duranno}</a>
                                         </p>
                                         <p>
-                                            <a className="bottom_link " href="http://www.christiantimes.ca/" target="_blank">크리스천신문</a>
+                                            <a className="bottom_link " href="http://www.christiantimes.ca/" target="_blank">{stringObj.christiantimes}</a>
                                         </p>
                                         <p>
-                                            <a className="bottom_link" href="http://www.godpeople.com/" target="_blank">갓피플</a>
+                                            <a className="bottom_link" href="http://www.godpeople.com/" target="_blank">{stringObj.godpeople}</a>
                                         </p>
                                         <p>
                                             <a className="bottom_link" href="#"></a>
@@ -1008,7 +1022,7 @@ class MainPage extends React.Component<Props, State> {
                                         <FontAwesomeIcon icon={faInfoCircle} className="fas fa-2x" />
                                     </div>
                                     <div className="col-sm-12 col-md-3 text-center text-md-left  mb-3 mb-md-0">
-                                        <h6 className="text-uppercase font-weight-bold">Contact</h6>
+                                        <h6 className="text-uppercase font-weight-bold">{stringObj.contact}</h6>
 
                                         <p>
                                             {/* <i className="fas fa-home mr-3"></i> */}
@@ -1026,7 +1040,7 @@ class MainPage extends React.Component<Props, State> {
                                         {this.state.user ?
                                             <Button onClick={() => { this.logOut() }}>로그아웃</Button>
                                             :
-                                            <Button onClick={() => { this.setState({ loginModal: true }) }}>관리자 로그인</Button>
+                                            <Button onClick={() => { this.setState({ loginModal: true }) }}>{stringObj.adminLogin}</Button>
                                         }
 
                                         <div>

@@ -14,9 +14,6 @@ class App extends React.Component<Props> {
             <Router>
                 <div>
                     <Route exact path="/" component={MainPage} />
-                    {/* <Route path="/photo" component={PhotoAlbum} /> */}
-                    {/* <Route path="/announcement" component={Announcement} /> */}
-                    {/* <Route path="/Mmap" component={MobileMap} /> */}
                 </div>
             </Router>
         )

@@ -4,6 +4,7 @@ import './PhotoAlbum.css'
 import PhotoEdit from './PhotoEdit'
 import $ from 'jquery'
 import firebase from '../firebase/firebase';
+import strings from './strings';
 // import _ from 'lodash';
 // import { Link } from 'react-router-dom';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -55,6 +56,7 @@ class PhotoModal extends Component<Props, State> {
             editObj: {},
             user: false,
             photoId: '',
+
         }
     }
 
@@ -259,7 +261,7 @@ class PhotoModal extends Component<Props, State> {
         //     $(carousel).html(data)
 
         // }
-        console.log(obj)
+        // console.log(obj)
         const id = obj.id
         const photoList: any = [];
         const objKeys = Object.keys(obj)
@@ -556,8 +558,6 @@ class PhotoModal extends Component<Props, State> {
 
     }
     render() {
-
-
         return (
             <div>
 
@@ -579,10 +579,10 @@ class PhotoModal extends Component<Props, State> {
                                     padding: '10px 0', borderBottom: '1px solid #e4e4e4',
                                 }} className='text-center'>
                                     <Col sm={8}>
-                                        제목
+                                        Title
                                     </Col>
                                     <Col sm={this.state.user ? 2 : 4}>
-                                        작성일
+                                        Date
                                     </Col>
                                 </Row>
                                 {this.displayAlbumTitle()}
